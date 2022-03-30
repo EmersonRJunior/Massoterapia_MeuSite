@@ -8,6 +8,7 @@ html{
     font-size: 62.4%;
     overflow-x: hidden;
     font-family: 'Fredoka', sans-serif;
+    text-shadow: black -1px 2px;
 }
 body{
     background: url("/Imagens/Sombra\ Palmeira.jpg");
@@ -35,6 +36,10 @@ header{
     position: fixed;
     z-index: 10;
 }
+p{
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+}
 .section1{
     width: 40%;
     font-size: 3rem;
@@ -60,6 +65,7 @@ header{
 
 button{
     border: none;
+    box-shadow: 0 0 15px rgb(26, 26, 26);
     color: white;
     font-weight: bold;
     font-size: 1.5rem;
@@ -74,7 +80,7 @@ main{
 }
 .section2{
     color: rgb(226, 225, 225);
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: lighter;
     width: 100%;
     height: 100vh;
@@ -92,17 +98,15 @@ main{
 .section2 .container div{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 2fr;
+    grid-template-rows: 0.7fr 2.3fr;
     margin: auto;
     width: 80%;
     height: 100%;
 }
 .section2 div img{
     margin: auto;
-    object-fit: cover;
-    object-position: 0 -90px;
-    width: 80%;
-    height: 90%;
+    margin-right: 7%;
+    width: 90%;
     grid-row-start: 1;
     grid-row-end: 3;
     box-shadow: 0 0 5px rgb(36, 36, 36);
@@ -111,9 +115,12 @@ main{
     margin: auto 0;
     font-size: 3rem;
     grid-row: 1;
+    grid-column-start: 2;
+    grid-column-end: 4;
 }
 .section2 div p{
     margin: 0 0 auto 0;
+    font-weight: 300;
     grid-row: 2;
     grid-column-start: 2;
     grid-column-end: 4;
@@ -142,22 +149,42 @@ main{
     margin: auto;
 }
 .section3 .div1 div{
-    background-color: rgb(255, 193, 112);
+    background-color: rgba(204, 202, 80, 0.5);
     box-shadow: 0 0 10px rgb(36, 36, 36);
     margin: auto;
     width: 30%;
     height: 100%;
 }
+.section3 .div1 div h2{
+    font-size: 3rem;
+    text-align: center;
+    background-color: rgba(80, 79, 32, 0.5);
+    padding: 3%;
+}
+.section3 .div1 div p{
+    font-size: 1.8rem;
+    background-color: transparent;
+}
 .section4{
     width: 100%;
     height: calc(100vh - 12vh);
     display: flex;
+    color: rgb(255, 255, 255);
+    
 }
 .section4 div{
     width: 40%;
-    height: 80%;
+    height: 70%;
     margin: auto;
-    padding: 1%;
-    background-color: antiquewhite;
-    font-size: 1.6rem;
+    padding: 3% 1%;
+    background-color: rgba(153, 136, 136, 0.5);
+    box-shadow: 0 0 15px rgb(0, 0, 0);
+    font-size: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.section4 iframe{
+    width: 100%;
+    height: 100%;
 }
