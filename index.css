@@ -5,35 +5,82 @@
 html{
     font-size: 86%;
     font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
     max-width: 100%;
     max-height: 100%;
     overflow-x: hidden;
     color: orange;
 }
 body{
-    background: url(/Imagens/Sombra\ Palmeira.jpg);
+    background: url(/Imagens/Massagem\ 1.jpg);
     background-repeat: no-repeat;
     background-size: 100%;
+    background-attachment: fixed;
+    backdrop-filter: blur(10px);
+    text-shadow: 1px 2px black;
 }
 header{
+    position: relative;
     height: 15vh;
     width: 100%;
+    padding-top: 1%;
     background-color: rgb(44, 44, 44);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
 }
+header div{
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    border-left: solid 2px orange;
+    border-top: solid 2px orange;
+    border-right: solid 2px orange;
+}
 main{
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    
+}
+main section{
+    width: 93%;
+    padding-inline: 15px;
+    align-self: center;
+    border-left: solid 2px orange;
+    border-right: solid 2px orange;
 }
 .section1{
     display: flex;
     height: 30vh;
     justify-content: center;
     align-items: center;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+}
+.section5{
+    padding-bottom: 2%;
+}
+footer{
+    position: relative;
+    padding: 1%;
+    background-color: rgb(44, 44, 44);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+footer div{
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    border-left: solid 2px orange;
+    border-bottom: solid 2px orange;
+    border-right: solid 2px orange;
+}
+footer section{
+    display: flex;
+}
+footer section p{
+    display: flex;
 }
