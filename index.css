@@ -1,8 +1,9 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
-html{
+
+html {
     font-size: 86%;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
@@ -11,7 +12,8 @@ html{
     overflow-x: hidden;
     color: orange;
 }
-body{
+
+body {
     background: url(/Imagens/Massagem\ 1.jpg);
     background-repeat: no-repeat;
     background-size: 100%;
@@ -19,7 +21,8 @@ body{
     backdrop-filter: blur(10px);
     text-shadow: 1px 2px black;
 }
-header{
+
+header {
     position: relative;
     height: 15vh;
     width: 100%;
@@ -30,7 +33,8 @@ header{
     align-items: center;
     font-size: 1.5rem;
 }
-header div{
+
+header div {
     position: absolute;
     width: 95%;
     height: 95%;
@@ -38,7 +42,8 @@ header div{
     border-top: solid 2px orange;
     border-right: solid 2px orange;
 }
-main{
+
+main {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,56 +53,95 @@ main{
     width: 95%;
     margin: auto;
 }
-main section{
+
+main section {
     width: 90%;
+    height: auto;
     margin: auto;
+    margin-block: 4%;
 }
-.section1{
+
+.section1 {
     display: flex;
-    height: 25vh;
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
+    margin-top: 8%;
 }
-.section2{
+
+.section2 {
     text-align: left;
-    height: 75vh;
+
 }
-.section2 img{
+
+.section2 img {
     width: 40%;
     float: right;
     margin-left: 5%;
     border-radius: 5px;
 }
-.section2 h2{
+
+.section2 h2 {
     margin: 20px;
 }
-.section3{
-    height: 50vh;
+
+.section3 p {
+    width: max-content;
 }
-.section3 div{
+
+.section3 h2 {
+    margin: auto;
+    margin-block: 4%;
+}
+
+.section3 div {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     width: 100%;
     height: 90%;
 }
-.section3 div div{
+
+.section3 div div {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    flex: 200px;
+    justify-content: space-between;
     align-items: center;
     width: 20%;
-    margin: auto;
+    margin: 25px;
 }
-.section3 div div img{
-    width: 80%;
-    height: 70%;
+
+.section3 div div img {
+    width: 250px;
+    height: 250px;
     object-fit: cover;
 }
-.section5{
+
+.section4 {
+    display: flex;
+    flex-direction: column;
+    height: 75vh;
+}
+
+.section4 iframe {
+    width: 40%;
+    height: 80%;
+}
+
+.section4 div {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.section5 {
     padding-bottom: 2%;
 }
-footer{
+
+footer {
     position: relative;
     padding: 1%;
     background-color: rgb(44, 44, 44);
@@ -105,7 +149,8 @@ footer{
     justify-content: center;
     align-items: center;
 }
-footer div{
+
+footer div {
     position: absolute;
     width: 95%;
     height: 95%;
@@ -113,9 +158,11 @@ footer div{
     border-bottom: solid 2px orange;
     border-right: solid 2px orange;
 }
-footer section{
+
+footer section {
     display: flex;
 }
-footer section p{
+
+footer section p {
     display: flex;
 }
