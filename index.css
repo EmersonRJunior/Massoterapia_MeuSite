@@ -20,7 +20,7 @@ body {
     background-attachment: fixed;
     backdrop-filter: blur(10px);
     background-position: 75%;
-    text-shadow: 1px 2px black;
+    text-shadow: -2px 2px black;
 }
 
 header {
@@ -77,10 +77,13 @@ main section {
 
 .section2 img {
     width: 40%;
-    min-width: 300px;
-    float: right;
-    margin-left: 5%;
+    min-width: 200px;
+    object-fit: cover;
     border-radius: 5px;
+    transform: translateX(-50%);
+    position: relative;
+    left: 50%;
+    margin-bottom: 4%;
 }
 
 .section2 h2 {
@@ -115,8 +118,8 @@ main section {
 }
 
 .section3 div div img {
-    width: 250px;
-    height: 250px;
+    width: 100%;
+    aspect-ratio: 1/1;    
     object-fit: cover;
 }
 
@@ -173,4 +176,9 @@ footer div {
     border: none;
     margin: 10px;
     text-align: center;
+}
+.section6{
+    position: fixed;
+    background-color: red;
+    
 }
