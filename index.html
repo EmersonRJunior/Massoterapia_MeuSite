@@ -1,128 +1,375 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    <link rel="stylesheet" href="/index.css">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords"
-        content="massoterapia, massoterapia navegantes, massoterapeuta, massoterapeuta navegantes, massagem, massagens, massagem navegantes, massagens navegantes, massagem terapeutica, massagem terapêutica, massagem terapeutica navegantes, massagem terapêutica navegantes">
-    <meta name="description"
-        content="Massagens Relaxantes, Massagens Terapêuticas para alívio das dores, Drenagem Linfática e Ventosaterapia, peça um orçamento grátis e agende sua massagem hoje!">
-    <meta name="author" content="Emerson Ritzmann Junior">
-    <title>Ritz Massagista - Massagista em Navegantes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gerenciador de Treinos - Sincronização Global</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            background-color: #f8fafc; 
+            overflow-x: hidden; 
+            touch-action: pan-y;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .card-enter { animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .tab-active { border-bottom: 3px solid #2563eb; color: #2563eb; }
+        #modal-montar, #modal-dia { z-index: 9999; }
+        
+        .notes-area { 
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+
+        .clickable-card {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .clickable-card:hover {
+            border-color: #3b82f6; 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        #content-dia .clickable-card:hover {
+            border-color: #10b981; 
+        }
+
+        .tab-content {
+            transition: opacity 0.2s ease-in-out;
+        }
+        .fade-out { opacity: 0; }
+        .fade-in { opacity: 1; }
+    </style>
 </head>
-
-<body>
-    <header>
-        <div></div>
-        <h1>Ritz Massagista</h1>
-    </header>
-    <main>
-        <section class="section1">
-            <h2>Massagista em Navegantes</h2>
-        </section>
-
-        <section class="section2">
-            <img src="/Imagens/Massagem 1.jpg" alt="Massagista">
-            <h2>Benefícios de se fazer uma massagem</h2>
-            <p>
-                °Humor: Em primeiro lugar, o toque provoca analgesia, que é a redução ou eliminação da dor, o que, por
-                si só, já deixa qualquer um menos ansioso e agitado. Durante a sessão, o corpo libera serotonina e
-                endorfina, substâncias que ajudam a combater os incômodos físicos, proporcionam sensação de bem-estar e
-                melhoram o humor.<br><br>
-
-                °Circulação Sanguínea: Quando você amassa os músculos, melhora a circulação e a distribuição do sangue
-                porque o calor
-                provocado pela fricção dilata os vasos. O músculo fica mais bem nutrido e relaxado.<br><br>
-
-                °Diminuição do estresse: A massagem também promove a redução do nível de cortisol, o hormônio do
-                estresse, que, quando em níveis elevados, causa insônia, irritação e ansiedade.<br><br>
-
-                °Dores musculares: A massagem facilita o processo de relaxamento dos músculos de várias maneiras, e a
-                dor é
-                aliviada por causa do aumento da circulação sangínea e relaxamento do músculo.<br><br>
-
-                °Drenagem Linfática: A sua principal função é drenar os líquidos e resíduos metabólicos e estimular a
-                circulação linfática através de massagens. é ótima para cólicas menstruais, em gestantes alivia dores
-                nas pernas e a sensação de peso, também funciona muito bem para minimizar hematomas e evitar processos
-                fibróticos nos pós-cirúrgicos, como plásticas e lipo<br><br>
-
-            </p>
-        </section>
-
-        <section class="section3">
-            <h2>Técnicas de massagem aplicadas</h2>
-            <div>
-                <div class="relaxante">
-                    <p>Massagem Relaxante</p><br>
-                    <img src="/Imagens/Massagem Relaxante.jpg" alt="">
-                </div>
-                <div class="terapeutica">
-                    <p>Massagem Terapêutica</p><br>
-                    <img src="/Imagens/Massagem Terapêutica.jpg" alt="">
-                </div>
-                <div class="linfatica">
-                    <p>Drenagem Linfática</p><br>
-                    <img src="/Imagens/Drenagem Linfática.jpg" alt="">
-                </div>
-                <div class="ventosa">
-                    <p>VentosaTerapia</p><br>
-                    <img src="/Imagens/VentosaTerapia.jpg" alt="">
+<body class="p-4 md:p-8">
+    <div id="app" class="max-w-4xl mx-auto pb-20">
+        <header class="mb-8 border-b border-slate-200">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-800">Sistema de Treinos</h1>
+                    <div id="connStatus" class="text-[10px] font-mono mt-1 px-2 py-0.5 rounded bg-slate-100 inline-block uppercase tracking-wider text-slate-500">Iniciando...</div>
                 </div>
             </div>
-        </section>
+            <nav class="flex gap-8">
+                <button onclick="switchTab('montar')" id="tab-montar" class="pb-3 font-semibold text-slate-500 hover:text-slate-700 transition-all tab-active">Treinos a Montar</button>
+                <button onclick="switchTab('dia')" id="tab-dia" class="pb-3 font-semibold text-slate-500 hover:text-slate-700 transition-all">Treino do Dia</button>
+            </nav>
+        </header>
 
-        <section class="section4">
-            <h2>Aonde eu atendo?</h2>
-            <p>
-                Atendimento a domicílio em Navegantes/SC
-            </p>
-            <div>
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1792.3994860512232!2d-48.64435963493282!3d-26.871475395319933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94d8cd87404e5c23%3A0xd257fece6816849!2sRitz%20Massagista!5e0!3m2!1spt-BR!2sbr!4v1649693409790!5m2!1spt-BR!2sbr"
-                    style="border:auto;" allowfullscreen="" loading="fast" referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-                <script id="cronoscript"
-                    src="https://www.cronoshare.com.br/assets/cronoSealWidget-ba977fd463539c4e3a5e7cec83eb3f99.js"
-                    type="text/javascript" domain="https://www.cronoshare.com.br"
-                    csspath="/assets/cronoSealWidget-c1a93f6d3bd9edeb8fc8ba80fcc1be00.css"></script><a
-                    href="https://www.cronoshare.com.br/croner-2091350-ritz-massagista" target="_blank"
-                    title="Veja o perfil de Ritz Massagista, Massagista a domicílio em Cronoshare" class="cronoWidget"
-                    style="width: 186px; height: 186px"><svg viewBox="0 0 100 100">
-                        <defs>
-                            <path id="arc" d="M11 50 A 39 39 0 0 0 89 50"></path>
-                        </defs>
-                        <circle cx="50%" cy="50%" r="50%" fill="#ffffff"></circle>
-                        <circle cx="50%" cy="50%" r="43%" stroke="#49abe8" stroke-width="1.2%" fill-opacity="0">
-                        </circle>
-                        <image width="80%" x="10%" y="35%"
-                            href="https://www.cronoshare.com.br/assets/badges/logo-normal-89ff9c34f6ff22b027fae7dbbc4c0c48.svg">
-                        </image>
-                        <image width="90%" x="5%" y="2%"
-                            href="https://www.cronoshare.com.br/assets/badges/favicon-blue-252f914684bd5b175f45e5e7a5a6c41e.svg">
-                        </image><text text-anchor="middle" x="50%" y="60%" fill="#49abe8" font-family="Calibri"
-                            font-size="70%" font-weight="bold">PROFISSIONAL</text><text fill="#49abe8"
-                            font-family="Calibri" font-size="70%" font-weight="bold" text-anchor="middle">
-                            <textPath xlink:href="#arc" startOffset="50%">DESDE 2022</textPath>
-                        </text>
-                    </svg></a>
-            </div>
-        </section>
+        <div id="tab-container" class="tab-content">
+            <main id="content-montar">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+                        <span class="text-slate-500 text-xs uppercase font-bold">Fila de Espera:</span>
+                        <span id="countPending" class="text-xl font-bold text-blue-600 ml-2">0</span>
+                    </div>
+                    <button onclick="openModal('montar')" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow flex items-center gap-2 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Novo Aluno
+                    </button>
+                </div>
+                <div id="studentList" class="grid grid-cols-1 gap-4"></div>
+                <div id="emptyStateMontar" class="hidden text-center py-20 text-slate-400">Nenhum aluno aguardando montagem.</div>
+            </main>
 
-    </main>
-    <footer>
-        <section class="lastsection">
-            <div class="contato">
-                <p>
-                    Ritz massagista - massagista em navegantes <br>
-                    Rua Corretor Aldo Pereira da Costa nº436
-                </p>
+            <main id="content-dia" class="hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-lg font-semibold text-slate-700">Prescrição da Sessão</h2>
+                    <button onclick="openModal('dia')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-lg font-semibold shadow flex items-center gap-2 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Novo Aluno
+                    </button>
+                </div>
+                <div id="dailyList" class="grid grid-cols-1 gap-4"></div>
+                <div id="emptyStateDia" class="hidden text-center py-20 text-slate-400">Nenhum treino prescrito para hoje.</div>
+            </main>
+        </div>
+
+        <!-- Rodapé com Info de Sincronização -->
+        <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-2 text-center">
+            <div id="userDisplay" class="text-[10px] text-slate-400 font-mono truncate px-4">Carregando ID de sincronização...</div>
+        </footer>
+    </div>
+
+    <!-- MODALS (Sem alterações estruturais) -->
+    <div id="modal-montar" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden card-enter">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-slate-800">Fila de Montagem</h2>
+                <button onclick="closeModal('montar')" class="text-slate-400 hover:text-slate-600">✕</button>
             </div>
-        </section>
-        <div></div>
-    </footer>
+            <form id="form-montar" class="p-6 space-y-4">
+                <input type="hidden" id="editId-montar">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Nome do Aluno</label>
+                    <input type="text" id="name-montar" required class="w-full border border-slate-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Academia</label>
+                        <input type="text" id="gym-montar" required class="w-full border border-slate-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Matrícula</label>
+                        <input type="text" id="enrollment-montar" class="w-full border border-slate-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Obs. Clínicas</label>
+                    <textarea id="obs-montar" rows="3" class="w-full border border-slate-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-colors">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-dia" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden card-enter">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-slate-800">Prescrever Treino</h2>
+                <button onclick="closeModal('dia')" class="text-slate-400 hover:text-slate-600">✕</button>
+            </div>
+            <form id="form-dia" class="p-6 space-y-4">
+                <input type="hidden" id="editId-dia">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Aluno</label>
+                        <input type="text" id="name-dia" required class="w-full border border-slate-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Grupo Muscular</label>
+                        <input type="text" id="muscle-dia" required class="w-full border border-slate-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Descrição / Notas</label>
+                    <textarea id="notes-dia" rows="10" required class="w-full border border-slate-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Exercícios e séries..."></textarea>
+                </div>
+                <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-lg hover:bg-emerald-700 transition-colors">Salvar Treino</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+        import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'emerson-treinos-v1';
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let students = [];
+        let dailyWorkouts = [];
+        let currentActiveTab = 'montar';
+        let currentUserId = null;
+
+        // Gestão de Swipe e Tabs (Sem alterações)
+        window.switchTab = (tab) => {
+            if (currentActiveTab === tab) return;
+            const container = document.getElementById('tab-container');
+            container.classList.add('fade-out');
+            setTimeout(() => {
+                currentActiveTab = tab;
+                document.getElementById('content-montar').classList.toggle('hidden', tab !== 'montar');
+                document.getElementById('content-dia').classList.toggle('hidden', tab !== 'dia');
+                document.getElementById('tab-montar').classList.toggle('tab-active', tab === 'montar');
+                document.getElementById('tab-dia').classList.toggle('tab-active', tab === 'dia');
+                container.classList.remove('fade-out');
+                container.classList.add('fade-in');
+            }, 150);
+        };
+
+        window.openModal = (type) => {
+            document.getElementById(`form-${type}`).reset();
+            document.getElementById(`editId-${type}`).value = '';
+            document.getElementById(`modal-${type}`).classList.replace('hidden', 'flex');
+        };
+        window.closeModal = (type) => document.getElementById(`modal-${type}`).classList.replace('flex', 'hidden');
+
+        // Autenticação (Correção de Permissão - Regra 3)
+        const initAuth = async () => {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (error) {
+                console.error("Auth Error:", error);
+                document.getElementById('connStatus').innerText = "Erro de Auth";
+            }
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUserId = user.uid; // Usar obrigatoriamente o UID real para evitar erro 403
+                document.getElementById('connStatus').innerText = "Conectado";
+                document.getElementById('connStatus').className = "text-[10px] font-mono mt-1 px-2 py-0.5 rounded bg-green-100 text-green-700 inline-block uppercase tracking-wider";
+                document.getElementById('userDisplay').innerText = `ID de Sincronização: ${user.uid}`;
+                setupListeners(user.uid);
+            }
+        });
+
+        initAuth();
+
+        function setupListeners(userId) {
+            // Regra 1: Caminhos estritos artifacts/appId/users/userId/...
+            const studentsRef = collection(db, 'artifacts', appId, 'users', userId, 'students');
+            onSnapshot(studentsRef, (snap) => {
+                students = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                renderMontar();
+            }, (err) => console.error("Erro Alunos:", err));
+
+            const workoutsRef = collection(db, 'artifacts', appId, 'users', userId, 'daily_workouts');
+            onSnapshot(workoutsRef, (snap) => {
+                dailyWorkouts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                renderDia();
+            }, (err) => console.error("Erro Treinos:", err));
+        }
+
+        // Operações de Banco de Dados
+        document.getElementById('form-montar').onsubmit = async (e) => {
+            e.preventDefault();
+            if (!currentUserId) return;
+            const id = document.getElementById('editId-montar').value;
+            const data = {
+                name: document.getElementById('name-montar').value,
+                gym: document.getElementById('gym-montar').value,
+                enrollment: document.getElementById('enrollment-montar').value,
+                observations: document.getElementById('obs-montar').value,
+                createdAt: id ? students.find(s => s.id === id).createdAt : new Date().toISOString()
+            };
+            const col = collection(db, 'artifacts', appId, 'users', currentUserId, 'students');
+            try {
+                id ? await updateDoc(doc(db, 'artifacts', appId, 'users', currentUserId, 'students', id), data) : await addDoc(col, data);
+                closeModal('montar');
+            } catch (err) { console.error(err); }
+        };
+
+        document.getElementById('form-dia').onsubmit = async (e) => {
+            e.preventDefault();
+            if (!currentUserId) return;
+            const id = document.getElementById('editId-dia').value;
+            const data = {
+                studentName: document.getElementById('name-dia').value,
+                muscleGroup: document.getElementById('muscle-dia').value,
+                notes: document.getElementById('notes-dia').value,
+                createdAt: id ? dailyWorkouts.find(w => w.id === id).createdAt : new Date().toISOString()
+            };
+            const col = collection(db, 'artifacts', appId, 'users', currentUserId, 'daily_workouts');
+            try {
+                id ? await updateDoc(doc(db, 'artifacts', appId, 'users', currentUserId, 'daily_workouts', id), data) : await addDoc(col, data);
+                closeModal('dia');
+            } catch (err) { console.error(err); }
+        };
+
+        window.confirmDelete = async (e, type, id) => {
+            e.stopPropagation();
+            if (!currentUserId) return;
+            const colName = type === 'montar' ? 'students' : 'daily_workouts';
+            await deleteDoc(doc(db, 'artifacts', appId, 'users', currentUserId, colName, id));
+        };
+
+        window.clearContent = async (e, id) => {
+            e.stopPropagation();
+            if (!currentUserId) return;
+            await updateDoc(doc(db, 'artifacts', appId, 'users', currentUserId, 'daily_workouts', id), { notes: "" });
+        };
+
+        // Renderização (Sem alterações de lógica)
+        window.editMontar = (id) => {
+            const s = students.find(i => i.id === id);
+            if(!s) return;
+            document.getElementById('editId-montar').value = s.id;
+            document.getElementById('name-montar').value = s.name;
+            document.getElementById('gym-montar').value = s.gym;
+            document.getElementById('enrollment-montar').value = s.enrollment || '';
+            document.getElementById('obs-montar').value = s.observations || '';
+            document.getElementById(`modal-montar`).classList.replace('hidden', 'flex');
+        };
+
+        window.editDia = (id) => {
+            const w = dailyWorkouts.find(i => i.id === id);
+            if(!w) return;
+            document.getElementById('editId-dia').value = w.id;
+            document.getElementById('name-dia').value = w.studentName;
+            document.getElementById('muscle-dia').value = w.muscleGroup;
+            document.getElementById('notes-dia').value = w.notes;
+            document.getElementById(`modal-dia`).classList.replace('hidden', 'flex');
+        };
+
+        function renderMontar() {
+            const list = document.getElementById('studentList');
+            list.innerHTML = '';
+            document.getElementById('countPending').innerText = students.length;
+            document.getElementById('emptyStateMontar').classList.toggle('hidden', students.length > 0);
+            students.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(s => {
+                const div = document.createElement('div');
+                div.className = "bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex justify-between items-center card-enter clickable-card";
+                div.onclick = () => editMontar(s.id);
+                div.innerHTML = `
+                    <div class="flex-1 overflow-hidden">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-slate-800 truncate">${s.name}</span>
+                            <span class="text-[9px] bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded uppercase font-bold shrink-0">${s.gym}</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-1 truncate">${s.observations || '<span class="italic opacity-50">Sem notas clínicas...</span>'}</p>
+                    </div>
+                    <button onclick="confirmDelete(event, 'montar', '${s.id}')" class="text-slate-300 hover:text-green-500 p-2 shrink-0 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function renderDia() {
+            const list = document.getElementById('dailyList');
+            list.innerHTML = '';
+            document.getElementById('emptyStateDia').classList.toggle('hidden', dailyWorkouts.length > 0);
+            dailyWorkouts.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(w => {
+                const div = document.createElement('div');
+                div.className = "bg-white p-5 rounded-2xl border border-slate-200 shadow-sm card-enter mb-6 overflow-hidden clickable-card";
+                div.onclick = () => editDia(w.id);
+                div.innerHTML = `
+                    <div class="flex justify-between items-start mb-4 gap-2">
+                        <div class="overflow-hidden">
+                            <h3 class="text-xl font-bold text-slate-800 truncate">${w.studentName}</h3>
+                            <span class="inline-block bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase mt-1">Foco: ${w.muscleGroup}</span>
+                        </div>
+                        <div class="flex gap-2 shrink-0">
+                            <button onclick="clearContent(event, '${w.id}')" class="text-slate-400 hover:text-amber-500 p-1 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                            <button onclick="confirmDelete(event, 'dia', '${w.id}')" class="text-slate-300 hover:text-red-500 p-1 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-sm text-slate-700 leading-relaxed overflow-hidden">
+                        <div class="notes-area">${w.notes || '<span class="text-slate-300 italic">Toque para adicionar o treino...</span>'}</div>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+    </script>
 </body>
-
 </html>
